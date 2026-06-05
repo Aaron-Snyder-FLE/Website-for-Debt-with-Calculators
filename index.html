@@ -1,0 +1,443 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Debt Terms Breakout Module</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#flashcards" aria-label="Debt Terms Breakout Module home">
+        <span class="brand-mark" aria-hidden="true">$</span>
+        <span>Debt Terms Lab</span>
+      </a>
+      <nav class="nav" aria-label="Main navigation">
+        <a href="credit.html">Credit Module</a>
+        <a href="#flashcards">Flashcards</a>
+        <a href="#quiz">Matching</a>
+        <a href="#installment">Installment</a>
+        <a href="#car-extra">Car Extra</a>
+        <a href="#mortgage-extra">Mortgage</a>
+        <a href="#revolving">Credit Card</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="intro" aria-labelledby="page-title">
+        <div class="intro-copy">
+          <p class="eyebrow">Breakout module</p>
+          <h1 id="page-title">Practice the terms, then test the math.</h1>
+          <p>
+            Flip debt vocabulary cards, compare loan choices, and see why minimum
+            credit card payments can stretch repayment for a long time.
+          </p>
+        </div>
+        <div class="mini-ledger" aria-label="Illustration of debt terms">
+          <div class="ledger-row">
+            <span>Principal</span>
+            <strong>$1,200</strong>
+          </div>
+          <div class="ledger-row">
+            <span>APR</span>
+            <strong>24.99%</strong>
+          </div>
+          <div class="ledger-row">
+            <span>Term</span>
+            <strong>18 mo.</strong>
+          </div>
+          <div class="ledger-line" aria-hidden="true"></div>
+          <div class="ledger-total">
+            <span>Ask:</span>
+            <strong>What will it cost?</strong>
+          </div>
+        </div>
+      </section>
+
+      <section class="module-band" id="flashcards" aria-labelledby="flashcard-title">
+        <div class="section-heading">
+          <p class="eyebrow">Memorize</p>
+          <h2 id="flashcard-title">Flashcards</h2>
+          <p>Click a card to flip it. Mark cards you know and shuffle the deck when you want a fresh pass.</p>
+        </div>
+
+        <div class="flashcard-actions" aria-label="Flashcard controls">
+          <button class="button primary" id="shuffleCards" type="button">Shuffle</button>
+          <button class="button" id="resetCards" type="button">Reset progress</button>
+          <span class="progress-pill" id="cardProgress" aria-live="polite">0 of 0 known</span>
+        </div>
+
+        <div class="flashcard-grid" id="flashcardGrid"></div>
+      </section>
+
+      <section class="module-band quiz-band" id="quiz" aria-labelledby="quiz-title">
+        <div class="section-heading">
+          <p class="eyebrow">Check</p>
+          <h2 id="quiz-title">Matching Activity</h2>
+          <p>Select a phrase, then select the definition that matches it. Correct pairs move into the matched area below.</p>
+        </div>
+
+        <div class="matching-box">
+          <div class="matching-toolbar">
+            <p class="matching-score" id="matchingScore" aria-live="polite">0 matches</p>
+            <button class="button primary" id="resetMatching" type="button">Reset matching</button>
+          </div>
+          <p class="matching-help">
+            If a pair is not a match, click the phrase again first, then choose a different definition.
+          </p>
+          <div class="matching-grid" aria-label="Debt terms matching activity">
+            <div>
+              <h3>Phrase</h3>
+              <div class="match-column" id="termColumn"></div>
+            </div>
+            <div>
+              <h3>Definition</h3>
+              <div class="match-column" id="definitionColumn"></div>
+            </div>
+          </div>
+          <div class="matched-area" aria-live="polite">
+            <div class="matched-area-header">
+              <h3>Matched Pairs</h3>
+              <span id="matchedAreaHint">Pairs land here when you get them right.</span>
+            </div>
+            <div class="matched-pairs" id="matchedPairs">
+              <p class="empty-match">No matches yet.</p>
+            </div>
+          </div>
+          <p class="quiz-feedback" id="matchingFeedback" aria-live="polite"></p>
+        </div>
+      </section>
+
+      <section class="split-section" id="installment" aria-labelledby="installment-title">
+        <div class="section-heading compact">
+          <p class="eyebrow">Calculator 1</p>
+          <h2 id="installment-title">Installment Loan</h2>
+          <p>
+            An installment loan is borrowed once and repaid through regular fixed payments over a set
+            term, like many auto loans, personal loans, and student loans.
+          </p>
+        </div>
+
+        <div class="tool-grid">
+          <form class="calculator" id="installmentForm">
+            <label>
+              Loan amount
+              <input id="loanAmount" type="number" min="0" step="50" value="2500">
+            </label>
+            <label>
+              APR
+              <span class="range-line">
+                <input id="loanApr" type="range" min="0" max="45" step="0.25" value="18">
+                <output id="loanAprOut">18.00%</output>
+              </span>
+            </label>
+            <label>
+              Term length
+              <span class="range-line">
+                <input id="loanTerm" type="range" min="3" max="84" step="1" value="24">
+                <output id="loanTermOut">24 months</output>
+              </span>
+            </label>
+          </form>
+
+          <div class="result-panel" aria-live="polite">
+            <div class="metric-row">
+              <span>Monthly payment</span>
+              <strong id="installmentMonthly">$0.00</strong>
+            </div>
+            <div class="metric-row">
+              <span>Total Paid</span>
+              <strong id="installmentTotal">$0.00</strong>
+            </div>
+            <div class="metric-row">
+              <span>Total Interest</span>
+              <strong id="installmentInterest">$0.00</strong>
+            </div>
+            <div class="bar-chart" aria-label="Principal and interest comparison">
+              <div class="bar principal" id="installmentPrincipalBar"><span>Principal</span></div>
+              <div class="bar interest" id="installmentInterestBar"><span>Interest</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="split-section extra-installment" id="car-extra" aria-labelledby="car-extra-title">
+        <div class="section-heading compact">
+          <p class="eyebrow">Calculator 2</p>
+          <h2 id="car-extra-title">Car Loan: Pay More, Pay Less Interest</h2>
+          <p>
+            See how paying more than the scheduled car payment can shorten the loan and reduce
+            total interest.
+          </p>
+        </div>
+
+        <div class="tool-grid wide-tool-grid visual-tool-grid">
+          <div class="loan-visual car-visual" aria-hidden="true">
+            <svg viewBox="0 0 220 160" focusable="false">
+              <rect class="visual-ground" x="18" y="112" width="184" height="18" rx="9"></rect>
+              <path class="visual-body" d="M42 88h14l20-28h72l22 28h14c10 0 18 8 18 18v20H24v-20c0-10 8-18 18-18z"></path>
+              <path class="visual-window" d="M82 68h26v20H68z"></path>
+              <path class="visual-window" d="M116 68h28l16 20h-44z"></path>
+              <circle class="visual-wheel" cx="66" cy="126" r="18"></circle>
+              <circle class="visual-wheel" cx="158" cy="126" r="18"></circle>
+            </svg>
+          </div>
+          <form class="calculator" id="carExtraForm">
+            <label>
+              Car loan amount
+              <input id="carLoanAmount" type="number" min="0" step="500" value="25000">
+            </label>
+            <label>
+              APR
+              <span class="range-line">
+                <input id="carLoanApr" type="range" min="0" max="25" step="0.25" value="7.5">
+                <output id="carLoanAprOut">7.50%</output>
+              </span>
+            </label>
+            <label>
+              Original term length
+              <span class="range-line">
+                <input id="carLoanTerm" type="range" min="12" max="84" step="1" value="60">
+                <output id="carLoanTermOut">60 months</output>
+              </span>
+            </label>
+            <label>
+              Extra monthly payment
+              <span class="range-line">
+                <input id="carExtraPayment" type="range" min="0" max="1000" step="10" value="100">
+                <output id="carExtraPaymentOut">+$100.00</output>
+              </span>
+            </label>
+            <p class="payment-emphasis">
+              New Monthly Payment:
+              <strong id="carNewPayment">$0.00</strong>
+            </p>
+          </form>
+
+          <div class="result-panel visual-panel" aria-live="polite">
+            <div class="metric-row payoff-highlight">
+              <span>Months to Payoff</span>
+              <strong id="carMonthsToPayoff">0 months</strong>
+            </div>
+            <div class="metric-row savings-highlight">
+              <span>Interest Saved</span>
+              <strong id="carInterestSaved">$0.00</strong>
+            </div>
+            <div class="comparison-metrics">
+              <div>
+                <span>Loan Amount</span>
+                <strong id="carLoanAmountSummary">$0.00</strong>
+              </div>
+              <div>
+                <span>Total Interest No Extra</span>
+                <strong id="carStandardInterest">$0.00</strong>
+              </div>
+              <div>
+                <span id="carWithExtraLabel">Total Interest with extra payment</span>
+                <strong id="carNewInterest">$0.00</strong>
+              </div>
+            </div>
+
+            <div class="interest-compare" aria-label="Total interest comparison">
+              <div>
+                <span>Total Interest No Extra</span>
+                <div class="compare-bar">
+                  <span id="carStandardInterestBar"></span>
+                </div>
+              </div>
+              <div>
+                <span id="carInterestBarLabel">Total Interest with extra payment</span>
+                <div class="compare-bar">
+                  <span class="reduced" id="carInterestBar"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="split-section mortgage-installment" id="mortgage-extra" aria-labelledby="mortgage-extra-title">
+        <div class="section-heading compact">
+          <p class="eyebrow">Calculator 3</p>
+          <h2 id="mortgage-extra-title">Mortgage: Extra Payments</h2>
+          <p>
+            Mortgages are usually much longer than car loans, so even a modest extra monthly payment
+            can change total interest in a big way.
+          </p>
+        </div>
+
+        <div class="tool-grid wide-tool-grid visual-tool-grid">
+          <div class="loan-visual house-visual" aria-hidden="true">
+            <svg viewBox="0 0 220 160" focusable="false">
+              <rect class="visual-ground" x="28" y="124" width="164" height="14" rx="7"></rect>
+              <path class="visual-roof" d="M32 82 110 26l78 56v18H32z"></path>
+              <rect class="visual-body" x="50" y="82" width="120" height="50" rx="6"></rect>
+              <rect class="visual-door" x="96" y="98" width="28" height="34" rx="4"></rect>
+              <rect class="visual-window" x="66" y="96" width="20" height="20" rx="3"></rect>
+              <rect class="visual-window" x="134" y="96" width="20" height="20" rx="3"></rect>
+            </svg>
+          </div>
+          <form class="calculator" id="mortgageExtraForm">
+            <label>
+              Mortgage amount
+              <input id="mortgageLoanAmount" type="number" min="0" step="1000" value="300000">
+            </label>
+            <label>
+              APR
+              <span class="range-line">
+                <input id="mortgageLoanApr" type="range" min="0" max="12" step="0.125" value="6.5">
+                <output id="mortgageLoanAprOut">6.50%</output>
+              </span>
+            </label>
+            <label>
+              Original term length
+              <span class="range-line">
+                <input id="mortgageLoanTerm" type="range" min="120" max="360" step="12" value="360">
+                <output id="mortgageLoanTermOut">360 months</output>
+              </span>
+            </label>
+            <label>
+              Extra monthly payment
+              <span class="range-line">
+                <input id="mortgageExtraPayment" type="range" min="0" max="3000" step="25" value="200">
+                <output id="mortgageExtraPaymentOut">+$200.00</output>
+              </span>
+            </label>
+            <p class="payment-emphasis">
+              New Monthly Payment:
+              <strong id="mortgageNewPayment">$0.00</strong>
+            </p>
+          </form>
+
+          <div class="result-panel visual-panel" aria-live="polite">
+            <div class="metric-row payoff-highlight">
+              <span>Months to Payoff</span>
+              <strong id="mortgageMonthsToPayoff">0 months</strong>
+            </div>
+            <div class="metric-row savings-highlight">
+              <span>Interest Saved</span>
+              <strong id="mortgageInterestSaved">$0.00</strong>
+            </div>
+            <div class="comparison-metrics">
+              <div>
+                <span>Loan Amount</span>
+                <strong id="mortgageLoanAmountSummary">$0.00</strong>
+              </div>
+              <div>
+                <span>Total Interest No Extra</span>
+                <strong id="mortgageStandardInterest">$0.00</strong>
+              </div>
+              <div>
+                <span id="mortgageWithExtraLabel">Total Interest with extra payment</span>
+                <strong id="mortgageNewInterest">$0.00</strong>
+              </div>
+            </div>
+
+            <div class="interest-compare" aria-label="Mortgage total interest comparison">
+              <div>
+                <span>Total Interest No Extra</span>
+                <div class="compare-bar">
+                  <span id="mortgageStandardInterestBar"></span>
+                </div>
+              </div>
+              <div>
+                <span id="mortgageInterestBarLabel">Total Interest with extra payment</span>
+                <div class="compare-bar">
+                  <span class="reduced" id="mortgageInterestBar"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="split-section alt" id="revolving" aria-labelledby="revolving-title">
+        <div class="section-heading compact">
+          <p class="eyebrow">Calculator 4</p>
+          <h2 id="revolving-title">Credit Card Payoff</h2>
+          <p>
+            Credit cards are revolving debt: you can carry a balance, pay it down, borrow again,
+            and pay interest when the balance is not cleared.
+          </p>
+        </div>
+
+        <div class="tool-grid visual-tool-grid">
+          <div class="loan-visual card-visual" aria-hidden="true">
+            <svg viewBox="0 0 220 160" focusable="false">
+              <rect class="visual-card" x="28" y="42" width="164" height="96" rx="14"></rect>
+              <rect class="visual-stripe" x="28" y="64" width="164" height="22"></rect>
+              <rect class="visual-chip" x="48" y="100" width="34" height="24" rx="5"></rect>
+              <rect class="visual-line" x="102" y="104" width="58" height="8" rx="4"></rect>
+              <rect class="visual-line" x="102" y="120" width="38" height="8" rx="4"></rect>
+            </svg>
+          </div>
+          <form class="calculator" id="cardForm">
+            <label>
+              Current balance
+              <input id="cardBalance" type="number" min="0" step="25" value="1800">
+            </label>
+            <label>
+              APR
+              <span class="range-line">
+                <input id="cardApr" type="range" min="0" max="45" step="0.25" value="24.99">
+                <output id="cardAprOut">24.99%</output>
+              </span>
+            </label>
+            <label>
+              Your monthly payment
+              <span class="range-line">
+                <input id="cardPayment" type="range" min="10" max="700" step="1" value="75">
+                <output id="cardPaymentOut">$75.00</output>
+              </span>
+            </label>
+            <p class="field-note" id="minimumPaymentNote" aria-live="polite">
+              Minimum Monthly Payment: monthly interest plus 1% of the remaining principal.
+            </p>
+            <p class="payment-emphasis">
+              Monthly Payment Used:
+              <strong id="cardPaymentUsedInline">$75.00</strong>
+            </p>
+          </form>
+
+          <div class="result-panel" aria-live="polite">
+            <div class="metric-row interest-highlight" id="cardInterestMetric">
+              <span>Total Interest</span>
+              <strong id="cardInterest">$0.00</strong>
+            </div>
+            <div class="metric-row">
+              <span>Minimum Monthly Payment</span>
+              <strong id="cardMinimumPayment">$0.00</strong>
+            </div>
+            <div class="metric-row">
+              <span>Time to Payoff</span>
+              <strong id="cardMonths">0</strong>
+            </div>
+            <div class="metric-row">
+              <span>Total Paid</span>
+              <strong id="cardTotalPaid">$0.00</strong>
+            </div>
+            <div class="payoff-visual" aria-label="Estimated payoff timeline">
+              <div class="payoff-track" aria-hidden="true">
+                <span id="payoffMarker"></span>
+              </div>
+              <div class="payoff-scale" aria-hidden="true">
+                <span class="tick start">0 mo</span>
+                <span class="tick year">5 yrs</span>
+                <span class="tick five">10 yrs</span>
+                <span class="tick ten">20+ yrs</span>
+              </div>
+            </div>
+            <p class="scenario-note" id="cardScenarioNote"></p>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="footer">
+      <p>Built for practice. Figures are educational estimates, not financial advice.</p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

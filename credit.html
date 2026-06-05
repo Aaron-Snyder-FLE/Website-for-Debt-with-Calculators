@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Credit Score Breakout Module</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="index.html" aria-label="Debt Terms Lab home">
+        <span class="brand-mark" aria-hidden="true">$</span>
+        <span>Debt Terms Lab</span>
+      </a>
+      <nav class="nav" aria-label="Main navigation">
+        <a href="index.html">Debt Module</a>
+        <a href="#credit-terms">Credit Terms</a>
+        <a href="#free-report">Free Reports</a>
+        <a href="#score-simulator">Simulator</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="credit-hero" aria-labelledby="credit-title">
+        <div class="intro-copy">
+          <p class="eyebrow">Credit module</p>
+          <h1 id="credit-title">See how credit choices can move a score over time.</h1>
+          <p>
+            Review the language of credit reports and FICO scores, then try a simple
+            scenario simulator with an example borrower.
+          </p>
+        </div>
+        <div class="score-visual" aria-label="Illustration of credit score range">
+          <div class="score-arc">
+            <span>300</span>
+            <strong>682</strong>
+            <span>850</span>
+          </div>
+          <p>Maya's starting estimated score</p>
+        </div>
+      </section>
+
+      <section class="module-band" id="credit-terms" aria-labelledby="credit-terms-title">
+        <div class="section-heading">
+          <p class="eyebrow">Vocabulary</p>
+          <h2 id="credit-terms-title">Credit Terms</h2>
+          <p>These are the terms learners will see when reading a credit report or talking about a score.</p>
+        </div>
+        <div class="term-grid" id="creditTermGrid"></div>
+      </section>
+
+      <section class="split-section credit-report-section" id="free-report" aria-labelledby="free-report-title">
+        <div class="section-heading compact">
+          <p class="eyebrow">Reports</p>
+          <h2 id="free-report-title">How to Pull a Free Credit Report</h2>
+          <p>
+            AnnualCreditReport.com is the official site for free credit reports from Equifax,
+            Experian, and TransUnion. A credit report is not the same thing as a credit score.
+          </p>
+        </div>
+
+        <div class="report-steps">
+          <div class="report-card">
+            <span class="step-number">1</span>
+            <h3>Go to the official site</h3>
+            <p>Use <a href="https://www.annualcreditreport.com/" target="_blank" rel="noreferrer">AnnualCreditReport.com</a>.</p>
+          </div>
+          <div class="report-card">
+            <span class="step-number">2</span>
+            <h3>Request reports</h3>
+            <p>Choose one, two, or all three bureaus: Equifax, Experian, and TransUnion.</p>
+          </div>
+          <div class="report-card">
+            <span class="step-number">3</span>
+            <h3>Review for errors</h3>
+            <p>Look for incorrect late payments, wrong balances, unknown accounts, or unfamiliar addresses.</p>
+          </div>
+          <div class="report-card important-note">
+            <span class="step-number">!</span>
+            <h3>Reports vs. scores</h3>
+            <p>AnnualCreditReport.com provides free reports. A free score may need to come from a bank, card issuer, lender, or bureau tool.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="module-band" id="score-simulator" aria-labelledby="simulator-title">
+        <div class="section-heading">
+          <p class="eyebrow">Activity</p>
+          <h2 id="simulator-title">Maya's Credit Decisions</h2>
+          <p>
+            Pick choices and watch the estimated score, utilization, payment history, and timeline change.
+            Some scenarios are about hardship, not blame. This is a teaching model, not an official FICO calculator.
+          </p>
+        </div>
+
+        <div class="fico-wheel-card" aria-label="FICO public factor categories">
+          <div class="fico-donut" aria-hidden="true">
+            <span>FICO</span>
+          </div>
+          <div class="fico-legend">
+            <div><span class="legend-dot payment"></span>Payment History <strong>35%</strong></div>
+            <div><span class="legend-dot owed"></span>Amounts Owed <strong>30%</strong></div>
+            <div><span class="legend-dot age"></span>Length of History <strong>15%</strong></div>
+            <div><span class="legend-dot new"></span>New Credit <strong>10%</strong></div>
+            <div><span class="legend-dot mix"></span>Credit Mix <strong>10%</strong></div>
+          </div>
+        </div>
+
+        <div class="simulator-layout">
+          <aside class="person-card" aria-label="Example credit profile">
+            <div class="avatar-circle" aria-hidden="true">M</div>
+            <h3>Maya Rivera</h3>
+            <p>Starting profile: two credit cards, one auto loan, two hard inquiries, and no recent late payments.</p>
+            <button class="button" id="resetCreditScenario" type="button">Reset scenario</button>
+          </aside>
+
+          <section class="score-dashboard" aria-live="polite">
+            <div class="score-panel">
+              <span>Estimated Score</span>
+              <strong id="simScore">682</strong>
+              <div class="score-meter" aria-hidden="true">
+                <span id="scoreMeterFill"></span>
+              </div>
+              <p id="scoreChange">Starting point</p>
+            </div>
+
+            <div class="factor-grid">
+              <div>
+                <span>Payment History</span>
+                <strong id="paymentHistory">1 late</strong>
+              </div>
+              <div>
+                <span>Credit Utilization</span>
+                <strong id="creditUtilization">42%</strong>
+              </div>
+              <div>
+                <span>Average Account Age</span>
+                <strong id="accountAge">3.5 yrs</strong>
+              </div>
+              <div>
+                <span>Hard Inquiries</span>
+                <strong id="hardInquiries">2</strong>
+              </div>
+            </div>
+
+            <div class="card-utilization-panel">
+              <div class="timeline-header">
+                <h3>Maya's Cards</h3>
+                <span id="utilizationFormula">$0 / $0</span>
+              </div>
+              <div class="credit-card-list" id="creditCardList"></div>
+            </div>
+
+            <div class="decision-grid" id="decisionGrid"></div>
+
+            <div class="timeline-card">
+              <div class="timeline-header">
+                <h3>Timeline</h3>
+                <span id="timelineMonth">Month 0</span>
+              </div>
+              <ol class="timeline-list" id="timelineList"></ol>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <section class="split-section source-section" aria-labelledby="source-title">
+        <div class="section-heading compact">
+          <p class="eyebrow">Research basis</p>
+          <h2 id="source-title">How the Simulator Handles Timing</h2>
+          <p>
+            The simulator uses FICO's public factor categories: payment history, amounts owed,
+            length of credit history, credit mix, and new credit. Since exact scoring formulas are
+            proprietary, each choice uses a clear directional estimate and a month marker.
+          </p>
+        </div>
+        <div class="source-grid">
+          <div class="report-card">
+            <h3>Immediate or next report cycle</h3>
+            <p>Balance changes and utilization changes usually show after a lender reports updated account information.</p>
+          </div>
+          <div class="report-card">
+            <h3>Late payment timing</h3>
+            <p>A missed payment matters most when it becomes reportable as late, then its effect can fade with newer positive history.</p>
+          </div>
+          <div class="report-card">
+            <h3>New credit timing</h3>
+            <p>Hard inquiries and new accounts can create a short-term dip, while available credit or on-time history may help later.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>
+        Built for practice. Sources:
+        <a href="https://www.myfico.com/credit-education/whats-in-your-credit-score" target="_blank" rel="noreferrer">myFICO score factors</a>,
+        <a href="https://www.annualcreditreport.com/" target="_blank" rel="noreferrer">AnnualCreditReport.com</a>,
+        <a href="https://consumer.ftc.gov/articles/free-credit-reports" target="_blank" rel="noreferrer">FTC free credit reports</a>.
+      </p>
+    </footer>
+
+    <script src="credit.js"></script>
+  </body>
+</html>
