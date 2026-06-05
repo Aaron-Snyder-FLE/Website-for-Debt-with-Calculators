@@ -913,10 +913,20 @@ output {
     var(--bg);
 }
 
+.credit-hero > *,
+#credit-terms > *,
+#credit-matching > *,
+#score-simulator > *,
+.credit-report-section > *,
+.source-section > * {
+  max-width: 1180px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .score-visual {
   display: grid;
-  gap: 18px;
-  place-items: center;
+  gap: 14px;
   border: 1px solid var(--line);
   border-radius: 8px;
   padding: 28px;
@@ -925,23 +935,56 @@ output {
 }
 
 .score-arc {
+  position: relative;
   display: grid;
   grid-template-columns: 1fr auto 1fr;
-  align-items: end;
+  gap: 12px;
+  align-items: center;
   width: 100%;
-  min-height: 180px;
-  border-bottom: 18px solid var(--green);
-  border-radius: 0 0 180px 180px;
+  min-height: 128px;
+  border: 1px solid rgba(31, 41, 51, 0.1);
+  border-radius: 8px;
+  padding: 24px 18px 44px;
+  color: var(--ink);
+  background: white;
+  overflow: hidden;
+}
+
+.score-arc::before {
+  content: "";
+  position: absolute;
+  right: 18px;
+  bottom: 20px;
+  left: 18px;
+  height: 16px;
+  border-radius: 999px;
   background: linear-gradient(90deg, var(--coral), var(--gold), var(--green));
-  clip-path: ellipse(50% 55% at 50% 100%);
-  padding: 78px 20px 28px;
-  color: white;
+}
+
+.score-arc::after {
+  content: "";
+  position: absolute;
+  bottom: 15px;
+  left: calc(18px + 70%);
+  width: 10px;
+  height: 26px;
+  border: 2px solid white;
+  border-radius: 999px;
+  background: var(--ink);
+  box-shadow: 0 6px 16px rgba(31, 41, 51, 0.24);
 }
 
 .score-arc strong {
   font-size: clamp(3.2rem, 7vw, 5rem);
   line-height: 1;
   text-align: center;
+  color: var(--green-dark);
+}
+
+.score-arc span {
+  align-self: end;
+  color: var(--muted);
+  font-weight: 900;
 }
 
 .score-arc span:last-child {
@@ -957,8 +1000,9 @@ output {
 .term-grid,
 .source-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(230px, 300px));
   gap: 14px;
+  justify-content: start;
 }
 
 .credit-term-card,
@@ -984,8 +1028,9 @@ output {
 
 .report-steps {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(220px, 270px));
   gap: 14px;
+  justify-content: start;
 }
 
 .step-number {
@@ -1005,9 +1050,86 @@ output {
 
 .simulator-layout {
   display: grid;
-  grid-template-columns: minmax(230px, 300px) minmax(0, 1fr);
+  grid-template-columns: minmax(280px, 340px) minmax(0, 820px);
   gap: 18px;
   align-items: start;
+  justify-content: start;
+}
+
+.fico-wheel-card {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: 18px;
+  align-items: center;
+  max-width: 920px;
+  margin-bottom: 20px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 18px;
+  background: var(--paper);
+  box-shadow: 0 12px 32px rgba(31, 41, 51, 0.08);
+}
+
+.fico-donut {
+  display: grid;
+  width: 190px;
+  height: 190px;
+  place-items: center;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, var(--paper) 0 42%, transparent 43%),
+    conic-gradient(
+      var(--green) 0 35%,
+      var(--gold) 35% 65%,
+      var(--blue) 65% 80%,
+      var(--coral) 80% 90%,
+      #6d5f8d 90% 100%
+    );
+}
+
+.fico-donut span {
+  color: var(--ink);
+  font-weight: 800;
+}
+
+.fico-legend {
+  display: grid;
+  gap: 10px;
+}
+
+.fico-legend div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 8px;
+}
+
+.legend-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.legend-dot.payment {
+  background: var(--green);
+}
+
+.legend-dot.owed {
+  background: var(--gold);
+}
+
+.legend-dot.age {
+  background: var(--blue);
+}
+
+.legend-dot.new {
+  background: var(--coral);
+}
+
+.legend-dot.mix {
+  background: #6d5f8d;
 }
 
 .person-card,
@@ -1028,7 +1150,13 @@ output {
 
 .person-card,
 .score-dashboard {
+  max-width: 820px;
   padding: 20px;
+}
+
+.person-card {
+  position: sticky;
+  top: 82px;
 }
 
 .person-card h3,
@@ -1050,6 +1178,143 @@ output {
   background: var(--green);
   color: white;
   font-size: 1.6rem;
+  font-weight: 800;
+}
+
+.sidebar-score {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 6px 12px;
+  align-items: center;
+  border: 1px solid rgba(53, 108, 156, 0.25);
+  border-radius: 8px;
+  padding: 12px;
+  background: rgba(53, 108, 156, 0.08);
+}
+
+.sidebar-score span,
+.sidebar-score p {
+  color: var(--muted);
+}
+
+.sidebar-score strong {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.score-face {
+  grid-row: span 2;
+  font-size: 2.2rem;
+  font-weight: 800;
+}
+
+.sidebar-score p {
+  grid-column: 1 / -1;
+  margin: 0;
+  font-weight: 800;
+}
+
+.sidebar-debt-payment {
+  display: grid;
+  gap: 4px;
+  border: 1px solid rgba(47, 111, 94, 0.25);
+  border-radius: 8px;
+  padding: 12px;
+  background: rgba(47, 111, 94, 0.08);
+}
+
+.sidebar-debt-payment span,
+.sidebar-debt-payment p {
+  color: var(--muted);
+}
+
+.sidebar-debt-payment strong {
+  font-size: 1.6rem;
+}
+
+.sidebar-debt-payment p {
+  margin: 0;
+  font-weight: 800;
+}
+
+.why-card {
+  display: grid;
+  gap: 10px;
+}
+
+.why-card .button {
+  width: 100%;
+}
+
+.why-panel {
+  display: grid;
+  gap: 10px;
+  border: 1px solid rgba(31, 41, 51, 0.12);
+  border-radius: 8px;
+  padding: 12px;
+  background: #fffdf8;
+}
+
+.why-panel[hidden] {
+  display: none;
+}
+
+.why-summary,
+.why-ratio,
+.why-horizon {
+  margin: 0;
+  color: var(--ink);
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+
+.why-counts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.why-counts span {
+  border-radius: 8px;
+  padding: 8px 6px;
+  background: rgba(53, 108, 156, 0.08);
+  color: var(--blue);
+  font-size: 0.78rem;
+  font-weight: 900;
+  text-align: center;
+}
+
+.why-columns {
+  display: grid;
+  gap: 10px;
+}
+
+.why-columns div {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 10px;
+  background: white;
+}
+
+.why-columns h4 {
+  margin: 0 0 6px;
+  font-size: 0.9rem;
+}
+
+.why-columns ul {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding-left: 18px;
+  color: var(--muted);
+  font-size: 0.86rem;
+  line-height: 1.35;
+}
+
+.why-horizon {
+  border-left: 4px solid var(--gold);
+  padding: 8px 10px;
+  background: rgba(231, 166, 62, 0.12);
   font-weight: 800;
 }
 
@@ -1100,6 +1365,108 @@ output {
   gap: 12px;
 }
 
+.decision-grid {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  align-items: start;
+}
+
+.decision-category {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 12px;
+  background:
+    linear-gradient(135deg, rgba(53, 108, 156, 0.06), rgba(47, 111, 94, 0.04)),
+    white;
+}
+
+.decision-category h3 {
+  margin: 0;
+  color: var(--ink);
+  font-size: 1rem;
+}
+
+.card-utilization-panel {
+  display: grid;
+  gap: 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 14px;
+  background: white;
+}
+
+.credit-card-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.sim-card {
+  display: grid;
+  gap: 9px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 14px;
+  background:
+    linear-gradient(135deg, rgba(53, 108, 156, 0.12), rgba(47, 111, 94, 0.06)),
+    var(--paper);
+}
+
+.sim-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.sim-card-top span,
+.sim-card p {
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.sim-card p {
+  margin: 0;
+}
+
+.util-meter {
+  height: 14px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(31, 41, 51, 0.1);
+}
+
+.util-meter span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--green);
+}
+
+.sim-card.good .util-meter span {
+  background: var(--green);
+}
+
+.sim-card.watch .util-meter span {
+  background: var(--gold);
+}
+
+.sim-card.high .util-meter span {
+  background: var(--coral);
+}
+
+.sim-card.closed {
+  opacity: 0.58;
+  filter: grayscale(0.7);
+  background: #f1f1f1;
+}
+
+.sim-card.closed .util-meter span {
+  background: var(--muted);
+}
+
 .factor-grid div,
 .decision-card,
 .timeline-card {
@@ -1118,7 +1485,23 @@ output {
 .decision-card {
   color: var(--ink);
   cursor: pointer;
+  min-height: auto;
+  padding: 10px;
   text-align: left;
+}
+
+.decision-card strong {
+  font-size: 0.96rem;
+}
+
+.decision-card span {
+  font-size: 0.9rem;
+}
+
+.decision-card:disabled {
+  opacity: 0.52;
+  cursor: not-allowed;
+  filter: grayscale(0.7);
 }
 
 .decision-card:hover,
@@ -1128,6 +1511,7 @@ output {
 }
 
 .decision-card em {
+  font-size: 0.82rem;
   font-style: normal;
 }
 
@@ -1148,6 +1532,12 @@ output {
   margin: 0;
   padding-left: 20px;
   color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.sidebar-log {
+  max-height: 420px;
+  overflow: auto;
 }
 
 .source-section {
@@ -1172,12 +1562,22 @@ output {
   .visual-tool-grid,
   .matching-grid,
   .simulator-layout,
+  .fico-wheel-card,
   .report-steps {
     grid-template-columns: 1fr;
   }
 
+  .fico-donut {
+    width: 170px;
+    height: 170px;
+  }
+
   .loan-visual {
     min-height: 150px;
+  }
+
+  .person-card {
+    position: static;
   }
 
   .intro {

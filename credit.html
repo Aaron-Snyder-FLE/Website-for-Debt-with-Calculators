@@ -14,7 +14,8 @@
       </a>
       <nav class="nav" aria-label="Main navigation">
         <a href="index.html">Debt Module</a>
-        <a href="#credit-terms">Credit Terms</a>
+        <a href="#credit-terms">Flashcards</a>
+        <a href="#credit-matching">Matching</a>
         <a href="#free-report">Free Reports</a>
         <a href="#score-simulator">Simulator</a>
       </nav>
@@ -33,7 +34,7 @@
         <div class="score-visual" aria-label="Illustration of credit score range">
           <div class="score-arc">
             <span>300</span>
-            <strong>682</strong>
+            <strong>685</strong>
             <span>850</span>
           </div>
           <p>Maya's starting estimated score</p>
@@ -42,11 +43,56 @@
 
       <section class="module-band" id="credit-terms" aria-labelledby="credit-terms-title">
         <div class="section-heading">
-          <p class="eyebrow">Vocabulary</p>
-          <h2 id="credit-terms-title">Credit Terms</h2>
-          <p>These are the terms learners will see when reading a credit report or talking about a score.</p>
+          <p class="eyebrow">Memorize</p>
+          <h2 id="credit-terms-title">Credit Flashcards</h2>
+          <p>Click a card to flip it. Mark terms you know, then try the matching activity below.</p>
         </div>
-        <div class="term-grid" id="creditTermGrid"></div>
+
+        <div class="flashcard-actions" aria-label="Credit flashcard controls">
+          <button class="button primary" id="shuffleCreditCards" type="button">Shuffle</button>
+          <button class="button" id="resetCreditCards" type="button">Reset progress</button>
+          <span class="progress-pill" id="creditCardProgress" aria-live="polite">0 of 0 known</span>
+        </div>
+
+        <div class="flashcard-grid" id="creditTermGrid"></div>
+      </section>
+
+      <section class="module-band quiz-band" id="credit-matching" aria-labelledby="credit-matching-title">
+        <div class="section-heading">
+          <p class="eyebrow">Check</p>
+          <h2 id="credit-matching-title">Credit Matching Activity</h2>
+          <p>Select a phrase, then select the definition that matches it. Correct pairs move into the matched area below.</p>
+        </div>
+
+        <div class="matching-box">
+          <div class="matching-toolbar">
+            <p class="matching-score" id="creditMatchingScore" aria-live="polite">0 matches</p>
+            <button class="button primary" id="resetCreditMatching" type="button">Reset matching</button>
+          </div>
+          <p class="matching-help">
+            If a pair is not a match, click the phrase again first, then choose a different definition.
+          </p>
+          <div class="matching-grid" aria-label="Credit terms matching activity">
+            <div>
+              <h3>Phrase</h3>
+              <div class="match-column" id="creditTermColumn"></div>
+            </div>
+            <div>
+              <h3>Definition</h3>
+              <div class="match-column" id="creditDefinitionColumn"></div>
+            </div>
+          </div>
+          <div class="matched-area" aria-live="polite">
+            <div class="matched-area-header">
+              <h3>Matched Pairs</h3>
+              <span>Pairs land here when you get them right.</span>
+            </div>
+            <div class="matched-pairs" id="creditMatchedPairs">
+              <p class="empty-match">No matches yet.</p>
+            </div>
+          </div>
+          <p class="quiz-feedback" id="creditMatchingFeedback" aria-live="polite"></p>
+        </div>
       </section>
 
       <section class="split-section credit-report-section" id="free-report" aria-labelledby="free-report-title">
@@ -110,14 +156,36 @@
           <aside class="person-card" aria-label="Example credit profile">
             <div class="avatar-circle" aria-hidden="true">M</div>
             <h3>Maya Rivera</h3>
-            <p>Starting profile: two credit cards, one auto loan, two hard inquiries, and no recent late payments.</p>
+            <p>Starting profile: two credit cards, one auto loan, two hard inquiries, and one older late payment from a past billing issue.</p>
             <button class="button" id="resetCreditScenario" type="button">Reset scenario</button>
+            <div class="sidebar-score" aria-live="polite">
+              <span>Live Score</span>
+              <strong id="sidebarScore">685</strong>
+              <div class="score-face" id="scoreFace" aria-hidden="true">:|</div>
+              <p id="scoreMood">Prime credit</p>
+            </div>
+            <div class="sidebar-debt-payment" aria-live="polite">
+              <span>Minimum Monthly Debt Payment</span>
+              <strong id="minimumDebtPayment">$0.00</strong>
+              <p id="minimumDebtDetail">Cards plus installment loans</p>
+            </div>
+            <div class="why-card">
+              <button class="button primary" id="whyScoreButton" type="button">Why?</button>
+              <div class="why-panel" id="whyScorePanel" hidden aria-live="polite"></div>
+            </div>
+            <div class="timeline-card sidebar-log">
+              <div class="timeline-header">
+                <h3>Log</h3>
+                <span id="timelineMonth">Month 0</span>
+              </div>
+              <ol class="timeline-list" id="timelineList"></ol>
+            </div>
           </aside>
 
           <section class="score-dashboard" aria-live="polite">
             <div class="score-panel">
               <span>Estimated Score</span>
-              <strong id="simScore">682</strong>
+              <strong id="simScore">685</strong>
               <div class="score-meter" aria-hidden="true">
                 <span id="scoreMeterFill"></span>
               </div>
@@ -152,14 +220,6 @@
             </div>
 
             <div class="decision-grid" id="decisionGrid"></div>
-
-            <div class="timeline-card">
-              <div class="timeline-header">
-                <h3>Timeline</h3>
-                <span id="timelineMonth">Month 0</span>
-              </div>
-              <ol class="timeline-list" id="timelineList"></ol>
-            </div>
           </section>
         </div>
       </section>
@@ -171,7 +231,10 @@
           <p>
             The simulator uses FICO's public factor categories: payment history, amounts owed,
             length of credit history, credit mix, and new credit. Since exact scoring formulas are
-            proprietary, each choice uses a clear directional estimate and a month marker.
+            proprietary, each choice uses a clear directional estimate and a month marker. The
+            teaching model keeps payment history and amounts owed as the strongest drivers, so
+            an active late payment can make a score above the high 700s difficult even after
+            several positive choices.
           </p>
         </div>
         <div class="source-grid">
@@ -196,7 +259,8 @@
         Built for practice. Sources:
         <a href="https://www.myfico.com/credit-education/whats-in-your-credit-score" target="_blank" rel="noreferrer">myFICO score factors</a>,
         <a href="https://www.annualcreditreport.com/" target="_blank" rel="noreferrer">AnnualCreditReport.com</a>,
-        <a href="https://consumer.ftc.gov/articles/free-credit-reports" target="_blank" rel="noreferrer">FTC free credit reports</a>.
+        <a href="https://consumer.ftc.gov/articles/free-credit-reports" target="_blank" rel="noreferrer">FTC free credit reports</a>,
+        <a href="https://www.consumerfinance.gov/ask-cfpb/how-long-does-a-bankruptcy-appear-on-credit-reports-en-325/" target="_blank" rel="noreferrer">CFPB bankruptcy reporting</a>.
       </p>
     </footer>
 
