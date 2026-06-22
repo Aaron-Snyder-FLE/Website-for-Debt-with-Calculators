@@ -73,16 +73,52 @@
   background: #f7f4ee;
 }
 
-.readiness-opening > div {
-  max-width: 900px;
+.readiness-opening > .opening-layout {
+  display: grid;
+  grid-template-columns: minmax(300px, 0.85fr) minmax(0, 1.15fr);
+  gap: clamp(36px, 7vw, 84px);
+  align-items: center;
 }
 
 .readiness-opening h2 {
-  margin: 0 0 24px;
+  margin: 0;
   color: var(--budget-navy);
-  font-size: clamp(2rem, 4.5vw, 4rem);
+}
+
+.opening-context,
+.opening-focus {
+  display: block;
+}
+
+.opening-context {
+  margin-bottom: 14px;
+  color: var(--green);
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.09em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.opening-focus {
+  font-size: clamp(2rem, 3.8vw, 3.25rem);
   line-height: 1.08;
   letter-spacing: -0.04em;
+}
+
+.opening-copy {
+  border-left: 1px solid var(--line);
+  padding-left: clamp(26px, 4vw, 48px);
+}
+
+.opening-copy p:first-child {
+  margin-top: 0;
+  color: var(--budget-navy) !important;
+  font-weight: 800;
+}
+
+.opening-copy p:last-child {
+  margin-bottom: 0;
 }
 
 .readiness-opening p:not(.lesson-label),
@@ -771,6 +807,18 @@
 }
 
 @media (max-width: 820px) {
+  .readiness-opening > .opening-layout {
+    grid-template-columns: 1fr;
+    gap: 26px;
+  }
+
+  .opening-copy {
+    border-top: 1px solid var(--line);
+    border-left: 0;
+    padding-top: 24px;
+    padding-left: 0;
+  }
+
   .stage-feature-heading,
   .stage-detail-grid {
     grid-template-columns: 1fr;
