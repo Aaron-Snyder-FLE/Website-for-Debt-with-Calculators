@@ -1,6 +1,7 @@
 .change-readiness-page {
   color: var(--ink);
   overflow-x: hidden;
+  padding-bottom: 88px;
 }
 
 .skip-link {
@@ -18,6 +19,37 @@
 
 .skip-link:focus {
   transform: translateY(0);
+}
+
+.floating-return {
+  position: fixed;
+  z-index: 900;
+  right: max(18px, env(safe-area-inset-right));
+  bottom: max(18px, env(safe-area-inset-bottom));
+  display: inline-flex;
+  min-height: 52px;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  padding: 12px 20px;
+  background: var(--budget-navy);
+  color: white;
+  box-shadow: 0 14px 34px rgba(24, 54, 66, 0.24);
+  font-size: 0.92rem;
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.floating-return span {
+  color: #92d0bb;
+  font-size: 1.2rem;
+}
+
+.floating-return:hover,
+.floating-return:focus-visible {
+  background: var(--green-dark);
+  transform: translateY(-2px);
 }
 
 .change-readiness-page .original-title-lockup h1 {
@@ -776,6 +808,17 @@
 }
 
 @media (max-width: 640px) {
+  .change-readiness-page {
+    padding-bottom: 92px;
+  }
+
+  .floating-return {
+    right: max(12px, env(safe-area-inset-right));
+    bottom: max(12px, env(safe-area-inset-bottom));
+    left: max(12px, env(safe-area-inset-left));
+    justify-content: center;
+  }
+
   .coaching-heading {
     grid-template-columns: 1fr;
   }

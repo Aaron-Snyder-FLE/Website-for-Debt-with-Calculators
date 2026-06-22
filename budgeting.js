@@ -287,6 +287,9 @@ function setupMicrosoftForm() {
 }
 
 resetButton.addEventListener("click", renderPractice);
+document.getElementById("floatingWeekReturn")?.addEventListener("click", (event) => {
+  window.location.href = event.currentTarget.dataset.href;
+});
 setupFlipCards();
 renderPractice();
 setupMicrosoftForm();
